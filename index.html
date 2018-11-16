@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="lib/vis/vis.js"></script>
+    <link href="lib/vis/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+    <title>Neo4j Query Log Analyzer</title>
+    <script src="lib/qanalyzer.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.css">
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.js"></script>
+</head>
+<body>
+<form class="ui form" onsubmit="return false">
+    <table>
+        <tr><td><input class="ui input" type="file" id="queryLogFile"/></td>
+            <td><button class="ui positive basic button" onClick="loadFile();">Analyze File</button></td><td><div id="msg"></div></td>
+        </tr>
+    </table>
+
+</form>
+<div class="ui top attached tabular menu">
+    <a id="first" class="active item" data-tab="first">Query Analysis</a>
+    <a id="second" class="item" data-tab="second">Query Log</a>
+    <a id="third" class="item" data-tab="third">Query Timeline</a>
+</div>
+<div id="appSummary" class="ui bottom attached active tab segment" data-tab="first" ></div>
+<div id="appLogFile" class="ui bottom attached tab segment" data-tab="second" style="height: 662px; overflow-x:auto;font-size: .7em; font-family: monospace; margin: 1em 0;"></div>
+<div id="queryPerTime" class="ui bottom attached tab segment" data-tab="third">
+    <div class="ui message">
+        <div class="header">Experimental!!!</div><p>We have the logDate now which is not the same as the query start date for this experiment we assume that the query start date is logDate - queryTime. Also we see only the queries which are taking more time as defined in the "dbms.logs.query.threshold"</p></div>
+    <table width="100%">
+        <tr>
+            <td width="200px">
+                <div class="ui right labeled input">
+                    <input id="bucketMinutes" type="number" placeholder="..." value=5 min=1 onchange="let dummy = qan._analyseQueriesPerMinuteUnit();">
+                    <div class="ui basic label">
+                        min.
+                    </div>
+                </div></td>
+            <td with="180px">
+                <button id="qtqShowAll" class="ui teal button" onClick="let d = qan._showAllQtQ();">Show All</button>
+            </td>
+            <td style="min-width: 1420px;">
+                <div id="qtq"></div>
+            </td>
+        </tr>
+    </table>
+    <div id="qcounts" width="1850px" height="600px"></div>
+</div>
+<div style="font-size: .7em">Neo4j Query Log Analyzer version 0.0.5</div>
+<script>
+    $('.menu .item')
+        .tab()
+    ;
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported
+    } else {
+        alert('The File APIs are not fully supported in this browser.');
+    }
+    var qan =  new QueryAnalyzer();
+    var msg = document.getElementById("msg");
+
+    function loadFile() {
+
+        let logFile = document.getElementById("queryLogFile").files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            let text = reader.result;
+            msg.innerHTML = "Reading File Finished, start analyzing";
+            qan.analyseFile(text);
+        }
+        reader.readAsText(logFile);
+        msg.innerHTML = "Start Reading file";
+    }
+</script>
+<style>
+    .summary_table {
+        width: 1780px;
+        table-layout: fixed;
+        border-collapse: collapse;
+        word-wrap: break-word;
+    }
+    .summary_table th {
+        text-decoration: none;
+        border-left: 1px solid darkgreen;
+    }
+    .summary_table th,
+    .summary_table td {
+        padding: 10px;
+        text-align: left;
+        border-left: 1px solid darkgreen;
+    }
+    .summary_table td:nth-child(1),
+    .summary_table th:nth-child(1) {
+        width: 269px;
+    }
+    .summary_table td:nth-child(2),
+    .summary_table th:nth-child(2) {
+        width: 150px;
+    }
+    .summary_table td:nth-child(3),
+    .summary_table th:nth-child(3) {
+        width: 150px;
+    }
+    .summary_table td:nth-child(4),
+    .summary_table th:nth-child(4) {
+        width: 150px;
+    }.summary_table td:nth-child(5),
+     .summary_table th:nth-child(5) {
+        width: 150px;
+    }
+    .summary_table td:nth-child(6),
+    .summary_table th:nth-child(6) {
+        width: 150px;
+    }
+    .summary_table td:nth-child(7),
+    .summary_table th:nth-child(7) {
+        width: 150px;
+    }
+    .summary_table td:nth-child(8),
+    .summary_table th:nth-child(8) {
+        width: 150px;
+    }
+    .summary_table td:nth-child(9),
+    .summary_table th:nth-child(9) {
+        width: 155px;
+    }
+    .summary_table td:nth-child(10),
+    .summary_table th:nth-child(10) {
+        width: 290px;
+    }
+    .summary_table thead {
+        background-color: #63B345;
+        color: #000000;
+    }
+    .summary_table thead tr {
+        display: block;
+        position: relative;
+    }
+    .summary_table tbody {
+        display: block;
+        overflow: auto;
+        width: 1780px;
+        height: 600px;
+    }
+    .old_ie_wrapper {
+        height: 600px;
+        width: 1780px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .old_ie_wrapper tbody {
+        height: auto;
+    }
+
+
+    .ql_table {
+        width: 18050px;
+        table-layout: fixed;
+        border-collapse: collapse;
+        word-wrap: break-word;
+    }
+    .ql_table th {
+        text-decoration: none;
+        border-left: 1px solid darkgreen;
+    }
+    .ql_table th,
+    .ql_table td {
+        padding: 5px;
+        text-align: left;
+        border-left: 1px solid darkgreen;
+    }
+    .ql_table td:nth-child(1),
+    .ql_table th:nth-child(1) {
+        width: 200px;
+    }
+    .ql_table td:nth-child(2),
+    .ql_table th:nth-child(2) {
+        width: 100px;
+    }
+    .ql_table td:nth-child(3),
+    .ql_table th:nth-child(3) {
+        width: 100px;
+    }
+    .ql_table td:nth-child(4),
+    .ql_table th:nth-child(4) {
+        width: 100px;
+    }.ql_table td:nth-child(5),
+     .ql_table th:nth-child(5) {
+         width: 100px;
+     }
+    .ql_table td:nth-child(6),
+    .ql_table th:nth-child(6) {
+        width: 100px;
+    }
+    .ql_table td:nth-child(7),
+    .ql_table th:nth-child(7) {
+        width: 100px;
+    }
+    .ql_table td:nth-child(8),
+    .ql_table th:nth-child(8) {
+        width: 100px;
+    }
+    .ql_table td:nth-child(9),
+    .ql_table th:nth-child(9) {
+        width: 100px;
+    }
+    .ql_table td:nth-child(10),
+    .ql_table th:nth-child(10) {
+        width: 150px;
+    }
+    .ql_table td:nth-child(11),
+    .ql_table th:nth-child(11) {
+        width: 400px;
+    }
+    .ql_table td:nth-child(12),
+    .ql_table th:nth-child(12) {
+        width: 250px;
+    }
+    .ql_table td:nth-child(13),
+    .ql_table th:nth-child(13) {
+        width: 350px;
+    }
+    .ql_table td:nth-child(14),
+    .ql_table th:nth-child(14) {
+        width: 250px;
+    }
+    .ql_table td:nth-child(15),
+    .ql_table th:nth-child(15) {
+        width: 15600px;
+    }
+    .ql_table thead {
+        background-color: #63B345;
+        color: #000000;
+    }
+    .ql_table thead tr {
+        display: block;
+        position: relative;
+    }
+    .ql_table tbody {
+        display: block;
+        overflow: auto;
+        width: 18050px;
+        height: 550px;
+    }
+    .hover {
+        position:relative;
+    }
+
+    .tooltip { /* hide and position tooltip */
+        top:20px;
+        background-color:lemonchiffon;
+        color:black;
+        border-radius:5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        opacity:0;
+        position:absolute;
+        -webkit-transition: opacity 0.5s;
+        -moz-transition: opacity 0.5s;
+        -ms-transition: opacity 0.5s;
+        -o-transition: opacity 0.5s;
+        transition: opacity 0.5s;
+    }
+
+    .tooltipth { /* hide and position tooltip */
+        top:5px;
+        left:100px;
+        background-color:lemonchiffon;
+        color:black;
+        font-size: 0.9em;
+        border-radius:5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        opacity:0;
+        position:absolute;
+        -webkit-transition: opacity 0.5s;
+        -moz-transition: opacity 0.5s;
+        -ms-transition: opacity 0.5s;
+        -o-transition: opacity 0.5s;
+        transition: opacity 0.5s;
+    }
+
+
+    .hover:hover .tooltip { /* display tooltip on hover */
+        opacity:1;
+    }
+
+    .hover:hover .tooltipth { /* display tooltip on hover */
+        opacity:0.7;
+    }
+
+</style>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "query-log-analyzer",
+  "version": "0.0.5",
+  "description": "Neo4j Query Log Analyzer",
+  "icons": [
+    {
+      "src": "qloganalyzer_icon.png",
+      "type": "png"
+    }
+  ],
+  "main": "index.html",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kees Vegter",
+  "license": "MIT",
+  "neo4jDesktop": {
+    "apiVersion": "^1.2.0"
+  , "licenseRequired": false
+  },
+  "dependencies": {
+    "semantic-ui": "^2.3.3"
+  }
+}
