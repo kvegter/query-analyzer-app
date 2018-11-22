@@ -45,7 +45,7 @@ In the Query Analysis Tab you will see the distinct queries ordered by Query Cou
 
   This is actual query execution time on the CPU. When time logging is disabled a 0 will be shown here. 
   
-  ```requires: dbms.logs.query.time_logging_enabled=true```
+  ```requires: dbms.logs.query.time_logging_enabled=true and dbms.track_query_cpu_time=true```
 - Max Planning
 
   This is the maximum time spend in the query plannings phase. When you hover over the value you will see also the Min and Avg planning times. Normally the first time a query is fired the query is planned and the query execution plan is placed in the query cache. So the next time a query is executed the Planning time will be almost 0. When Time logging is disabled a 0 will be shown here.
@@ -66,7 +66,7 @@ In the Query Analysis Tab you will see the distinct queries ordered by Query Cou
 
   This is the average allocated bytes in memory of this query. Note that this is a cumulative value and tells something about how memory intensive the query was.
 
-  ```requires: dbms.logs.query.allocation_logging_enabled=true```
+  ```requires: dbms.logs.query.allocation_logging_enabled=true and dbms.track_query_allocation=true```
 
 - Protocol + Clients
 
