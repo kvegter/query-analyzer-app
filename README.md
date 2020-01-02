@@ -45,7 +45,7 @@ In the Query Analysis Tab you will see the distinct queries ordered by Query Cou
   
     Experimental; Show the occurrences of this query in the Query Timeline tab.
     
-  - Explain <img width="25px" src="explainicon.png"/> 
+  - <div valign="bottom" >Explain <img width="25px" src="explainicon.png"/> </div>
   
     The query plan will be shown (explain). This is only available when there is a connection to a database and the query is not executed on the database 'system' (version 4+):
     
