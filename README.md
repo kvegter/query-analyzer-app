@@ -1,6 +1,7 @@
 # query-analyzer-app
 
 The query log analyzer is a Neo4j Desktop App to help you to understand the query log file of a Neo4j Enterprise server. 
+In version 1.0.1 it is now possible to see the current running queries on a database and see the query stats of the latest 8192 queries (version 3.5.4+).
 
 ```
 run in the neo4j desktop (1.1.10+)
@@ -11,32 +12,47 @@ run in the neo4j desktop (1.1.10+)
 When you experience slowness of the Neo4j server your queries may be inefficient or for example the query load on the server is too high. A good step is then to switch on the query log via the neo4j.conf file. Normally you will set a threshold to log only those queries which take more than an x amount of time (start with 100ms for example). This means that the queries shown in the query log tool are not the complete query load on the server! This tool however can give you a direction to find the possible causes for your query bottlenecks quickly. 
 It is good practice to switch the query logging on for development and test servers and analyze your queries frequently when you develop your solution.  
 
-## Query Log Analyzer
+Besides analyzing the query log files in the '__Query Log__' tool from version 1.0.1 it is possible to connect to a database and get a list of current running queries in the '__Current Queries__' tool or retrieve the query statistics in the '__Query Stats__' tool. 
+So even without the query log file you can now check the query load on your neo4j server.
+<img src="qatool.png"/>
+
+
+## Query Log 
 
 The Query Log Analyzer needs a query.log file. You can upload this file to the tool and then the tool will analyze this file. After analyzing the file the following message will be shown:
 <img src="qla.png"/>
 
 In this example the query log file has 26 rows (each query one row) and 6 distinct queries are found. These 6 distinct queries are shown in the “Query Analysis” tab where you can find per query the statistics. 
 
-## Query Analysis
+### Query Analysis
 In the Query Analysis Tab you will see the distinct queries ordered by Query Count * Avg Time descending. Which means that the most expensive query from the log file is placed on top.
 <img src="qatab.png"/>
 
 - The Query (the cell below AvgTime - Avg Mem values)
 
    This is the actual ‘distinct’ query string where Cypher key words are Highlighted.
-  - Query Count
+  - Query Count (sorting possible)
 
     The count of this distinct query in the log file. 
-  - Filter
+  - Filter <img src="filtericon.png"/>
   
     Show only the query log records for this query in the Query Log Tab.
-  - Highlight
+  - Highlight <img src="highlighticon.png"/>
 
     Highlight this query in the query log records in the Query Log Tab. It can be useful to see which queries are send to the server around the same time. 
-  - Timeline
+  - Timeline <img src="timelineicon.png"/>
   
     Experimental; Show the occurrences of this query in the Query Timeline tab.
+    
+  - Explain <img src="explainicon.png"/> 
+  
+    The query plan will be shown (explain). This is only available when there is a connection to a database and the query is not executed on the database 'system' (version 4+):
+    <img src="explainquery.png"/>
+    
+  - Database Name (version 4+)  <img src="dbicon.png" />
+  
+    When the query log file is from a version 4+ server then a label with the database name is shown where this query was executed on.
+    
     
 - Avg Time, Min Tim, Max Time
 

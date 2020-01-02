@@ -1,6 +1,6 @@
 {
   "name": "query-log-analyzer",
-  "version": "0.0.5",
+  "version": "1.0.1",
   "description": "Neo4j Query Log Analyzer",
   "icons": [
     {
