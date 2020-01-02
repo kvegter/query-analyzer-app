@@ -45,7 +45,7 @@ In the Query Analysis Tab you will see the distinct queries ordered by Query Cou
   
     Experimental; Show the occurrences of this query in the Query Timeline tab.
     
-  - <div valign="bottom" >Explain <img width="25px" src="explainicon.png"/> </div>
+  - Explain <img width="25px" src="explainicon.png"/> 
   
     The query plan will be shown (explain). This is only available when there is a connection to a database and the query is not executed on the database 'system' (version 4+):
     
@@ -56,31 +56,32 @@ In the Query Analysis Tab you will see the distinct queries ordered by Query Cou
    When the query log file is from a version 4+ server then a label with the database name is shown where this query was executed on.
     
     
-- Avg Time, Min Tim, Max Time
+- Avg Time (sorting possible) , Min Tim, Max Time
 
   The Time is here the total time the query uses to execute (query cpu + planning + waiting).
-- Avg CPU 
+  
+- Avg CPU (sorting possible)
 
   This is actual query execution time on the CPU. When time logging is disabled a 0 will be shown here. 
   
   ```requires: dbms.logs.query.time_logging_enabled=true and dbms.track_query_cpu_time=true```
-- Max Planning
+- Max Planning (sorting possible)
 
   This is the maximum time spend in the query plannings phase. When you hover over the value you will see also the Min and Avg planning times. Normally the first time a query is fired the query is planned and the query execution plan is placed in the query cache. So the next time a query is executed the Planning time will be almost 0. When Time logging is disabled a 0 will be shown here.
 
   ```requires: dbms.logs.query.time_logging_enabled=true``` 
-- Avg Waiting
+- Avg Waiting (sorting possible)
 
   The average waiting time before executing the query. The wait can be caused by heavy loads, so the query has to wait to get some execution time or the wait can be caused by waiting for database locks to be released. When Time logging is disabled a 0 will be shown here.
 
   ```requires: dbms.logs.query.time_logging_enabled=true ```
-- Cache Hits %
+- Cache Hits % (sorting possible)
 
   This gives the percentage of the data for this query can be loaded from cache. 100% means that all the data is read from cache.
 
   ```requires: dbms.logs.query.page_logging_enabled=true ```
   
-- Avg Mem
+- Avg Mem (sorting possible)
 
   This is the average allocated bytes in memory of this query. Note that this is a cumulative value and tells something about how memory intensive the query was.
 
@@ -106,7 +107,11 @@ In the Query Analysis Tab you will see the distinct queries ordered by Query Cou
 <img src="qlt1.png"/>
 <img src="qlt2.png"/>
 
-The query log tab shows every query log row with proper headings. There is a lot of information in there so you need to scroll horizontally to see all the columns. From the First Query Analysis tab you can click on Highlight, then the selected query is highlighted. When you press “Filter” from the first tab only those query log records are shown in this tab. When you want to profile a query than you can copy the query and the used query parameters from this tab.
+The query log tab shows every query log row with proper headings. There is a lot of information in there so you need to scroll horizontally to see all the columns. 
+From the First Query Analysis tab you can click on Highlight, then the selected query is highlighted. When you press “Filter” from the first tab only those query log records are shown in this tab. 
+When you want to profile a query than you can copy the query and the used query parameters from this tab.
+
+When there is a database connection then the '__Explain__' icon is shown in the Query Cell.
 
 ## Query Timeline
 
