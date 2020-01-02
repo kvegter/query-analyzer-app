@@ -111,7 +111,7 @@ The query log tab shows every query log row with proper headings. There is a lot
 From the First Query Analysis tab you can click on Highlight, then the selected query is highlighted. When you press “Filter” from the first tab only those query log records are shown in this tab. 
 When you want to profile a query than you can copy the query and the used query parameters from this tab.
 
-When there is a database connection then the '__Explain__' icon is shown in the Query Cell.
+When there is a database connection then the '__Explain__' icon is shown in the Query Cell. A column neoDB is added to show on which version 4 db the query was executed.
 
 #### Query Timeline
 
@@ -125,14 +125,31 @@ The Query Timeline is an experimental feature and it plots the amount of queries
 The Current Queries tab shows the current running queries in the database. When you press the '__Queries__' bar then the current running queries are shown.
 When you have a version 4+ database then you can check for the current running queries per database by using the DB Name tab's.
 
-##### Columns
-
-
+Note that some cells can have the value 'null' which means that those timings are not collected. Look at the Query Analysis explanation above how to switch on 'timings' in the neo4j.conf file or via the procedure dbms.setConfigValue().
 
 ## Query Stats
 
 <img src="qstats.png" />
 
-Since version 3.5.4 the database collects the query statistics for the last 8192 invocations and keeps that in memory. This is a great way to see what the latest load was on the server. If you want to fine tune your queries you have here the query times in nano seconds (the query log uses milliseconds)
+Since version 3.5.4 the database collects the query statistics for the last 8192 invocations 
+and keeps that in memory. This is a great way to see what the latest load was on the server. 
+If you want to fine tune your queries you have here the query times in micro seconds (the query log uses milliseconds)
 
 ##### Columns
+
+* The First column
+
+  When the query is less than 10.000 characters then a green Explain icon is shown, and when you click on it you can do an explain on this query.
+
+* Avg Time, Min Time, Max Time
+
+  The total time of compiling and executing the query in milliseconds (with a precision to microseconds).
+  
+* Max Compile
+
+  This the maximum compile time in milliseconds (with a precision to microseconds) from all the invocations of this specific query.
+  This is the time the planner has taken to create a execution plan for the query.
+  
+* Avg Execution
+
+  The average execution time of this query in milliseconds (with a precision to microseconds).
