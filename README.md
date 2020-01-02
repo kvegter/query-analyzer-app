@@ -34,27 +34,25 @@ In the Query Analysis Tab you will see the distinct queries ordered by Query Cou
   - Query Count (sorting possible)
 
     The count of this distinct query in the log file. 
-  - <img width="30px" src="filtericon.png"/> 
+  - Filter <img width="25px" src="filtericon.png"/> 
   
     Show only the query log records for this query in the Query Log Tab.
     
-  - <img width="30px" src="highlighticon.png"/>
+  - Highlight <img width="25px" src="highlighticon.png"/>
   
     Highlight this query in the query log records in the Query Log Tab. It can be useful to see which queries are send to the server around the same time. 
-  - <img width="30px" src="timelineicon.png"/>
+  - Timeline <img width="25px" src="timelineicon.png"/>
   
     Experimental; Show the occurrences of this query in the Query Timeline tab.
     
-  - <img width="30px" src="explainicon.png"/> 
+  - Explain <img width="25px" src="explainicon.png"/> 
   
     The query plan will be shown (explain). This is only available when there is a connection to a database and the query is not executed on the database 'system' (version 4+):
     
-    <img width="500px" src="explainquery.png"/>
+    <img width="450px" src="explainquery.png"/>
     
-  - <img width="30px" src="dbicon.png"/>
+  - Database Name <img height="30px" src="dbicon.png"/>
 
-   Database Name (version 4+)
-   
    When the query log file is from a version 4+ server then a label with the database name is shown where this query was executed on.
     
     
