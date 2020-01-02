@@ -24,7 +24,7 @@ The Query Log Analyzer needs a query.log file. You can upload this file to the t
 
 In this example the query log file has 26 rows (each query one row) and 6 distinct queries are found. These 6 distinct queries are shown in the “Query Analysis” tab where you can find per query the statistics. 
 
-### Query Analysis
+#### Query Analysis
 In the Query Analysis Tab you will see the distinct queries ordered by Query Count * Avg Time descending. Which means that the most expensive query from the log file is placed on top.
 <img src="qatab.png"/>
 
@@ -102,7 +102,7 @@ In the Query Analysis Tab you will see the distinct queries ordered by Query Cou
 
   Also a client list is shown, this may be useful to identify how many different ip numbers are sending requests to the neo4j server. Note that the bolt driver keeps a pool of connections open to the database, so you can have many clients from one ip number. 
 
-## Query Log
+#### Query Log
 
 <img src="qlt1.png"/>
 <img src="qlt2.png"/>
@@ -113,7 +113,26 @@ When you want to profile a query than you can copy the query and the used query 
 
 When there is a database connection then the '__Explain__' icon is shown in the Query Cell.
 
-## Query Timeline
+#### Query Timeline
 
 The Query Timeline is an experimental feature and it plots the amount of queries per time unit (default is 5 minutes) and the average query time in seconds. This is bases on the log time which is not the same as the query start time. It will give you a quick overview when it was very busy on the server. 
 <img src="qtt.png"/>
+
+## Current Queries
+
+<img src="curq.png" />
+
+The Current Queries tab shows the current running queries in the database. When you press the '__Queries__' bar then the current running queries are shown.
+When you have a version 4+ database then you can check for the current running queries per database by using the DB Name tab's.
+
+##### Columns
+
+
+
+## Query Stats
+
+<img src="qstats.png" />
+
+Since version 3.5.4 the database collects the query statistics for the last 8192 invocations and keeps that in memory. This is a great way to see what the latest load was on the server. If you want to fine tune your queries you have here the query times in nano seconds (the query log uses milliseconds)
+
+##### Columns
