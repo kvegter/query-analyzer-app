@@ -129,7 +129,7 @@ The Query Timeline is an experimental feature and it plots the amount of queries
 
 When you press the '__Queries__' bar then the current running queries are shown. When you have a version 4+ database then you can check for the current running queries per database by using the DB Name tab's.
 
-Note that some cells can have the value 'null' which means that those timings are not collected. Look at the Query Analysis explanation above how to switch on 'timings' in the neo4j.conf file or via the procedure dbms.setConfigValue().
+Note that some cells can have no value which means that those timings are not collected. Look at the Query Analysis explanation above how to switch on 'timings' in the neo4j.conf file or via the procedure dbms.setConfigValue().
 
 ## Query Stats
 
@@ -147,7 +147,7 @@ The columns Count, Last Invocation, Avg Time, Max Compale and Avg Execution are 
 
 
   <table>
-  <tr><td> <img src="explainicon.png"/> </td><td> When the query is less than 10.000 characters then a green Explain icon is shown, and when you click on it you can do an explain on this query. </td></tr>
+  <tr><td> <img src="explainicon.png"/> </td><td> When the query is less than 10000 characters then a green Explain icon is shown, and when you click on it you can do an explain on this query. </td></tr>
   <tr><td> <img src="timelineicon.png"/> </td><td> When there are more than one invocations of a query, then the timeline function is available </td></tr>
   </table>
    
