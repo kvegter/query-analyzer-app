@@ -141,7 +141,7 @@ If you want to fine tune your queries you have here the query times in micro sec
 
 ##### Columns
 
-The columns Count, Last Invocation, Avg Time, Max Compale and AvgExecution are sortable.
+The columns Count, Last Invocation, Avg Time, Max Compale and Avg Execution are sortable.
 
 * The First column
 
