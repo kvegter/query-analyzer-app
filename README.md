@@ -31,30 +31,35 @@ In the Query Analysis Tab you will see the distinct queries ordered by Query Cou
 - The Query (the cell below AvgTime - Avg Mem values)
 
    This is the actual ‘distinct’ query string where Cypher key words are Highlighted.
-  - Query Count (sorting possible)
+- Query Count (sorting possible)
 
     The count of this distinct query in the log file. 
-  - Filter <img width="25px" src="filtericon.png"/> 
-  
-    Show only the query log records for this query in the Query Log Tab.
-    
-  - Highlight <img width="25px" src="highlighticon.png"/>
-  
-    Highlight this query in the query log records in the Query Log Tab. It can be useful to see which queries are send to the server around the same time. 
-  - Timeline <img width="25px" src="timelineicon.png"/>
-  
-    Experimental; Show the occurrences of this query in the Query Timeline tab.
-    
-  - Explain <img width="25px" src="explainicon.png"/> 
-  
-    The query plan will be shown (explain). This is only available when there is a connection to a database and the query is not executed on the database 'system' (version 4+):
-    
-    <img width="450px" src="explainquery.png"/>
-    
-  - Database Name <img height="30px" src="dbicon.png"/>
 
-   When the query log file is from a version 4+ server then a label with the database name is shown where this query was executed on.
+   <table>
+   <tr>
+   <td><img width="30px" src="filtericon.png"/></td> 
+   <td>A Filter to show only the query log records for this query in the Query Log Tab.</td>
+    </tr>
+   <tr>
+    <td><img width="30px" src="highlighticon.png"/></td>
+    <td>Highlight this query in the query log records in the Query Log Tab. It can be useful to see which queries are send to the server around the same time. </td>
+    </tr>
+   <tr>
+     <td><img width="30px" src="timelineicon.png"/></td>
+    <td>Experimental; Show the occurrences of this query in the Query Timeline tab. </td>
+    </tr>
+   <tr>
+     <td><img width="30px" src="explainicon.png"/></td> 
+     <td>The query plan will be shown (explain). This is only available when there is a connection to a database and the query is not executed on the database 'system' (version 4+):
     
+    <img width="400px" src="explainquery.png"/>
+    </td>
+    </tr>
+   <tr>
+    <td><img height="30px" src="dbicon.png"/></td>
+    <td>When the query log file is from a version 4+ server then a label with the database name is shown where this query was executed on.</td>
+    </tr>
+   </table> 
     
 - Avg Time (sorting possible) , Min Tim, Max Time
 
@@ -136,13 +141,16 @@ If you want to fine tune your queries you have here the query times in micro sec
 
 ##### Columns
 
+The columns Count, Last Invocation, Avg Time, Max Compale and AvgExecution are sortable.
+
 * The First column
 
-  |   |   |
-  |---|---|
-  | <img src="explainicon.png"/> | When the query is less than 10.000 characters then a green Explain icon is shown, and when you click on it you can do an explain on this query. |
-  | <img src="timelineicon.png"/> | When there are more than one invocations of a query, then the timeline function is available | 
-    
+
+  <table>
+  <tr><td> <img src="explainicon.png"/> </td><td> When the query is less than 10.000 characters then a green Explain icon is shown, and when you click on it you can do an explain on this query. </td></tr>
+  <tr><td> <img src="timelineicon.png"/> </td><td> When there are more than one invocations of a query, then the timeline function is available </td></tr>
+  </table>
+   
 
 * Avg Time, Min Time, Max Time
 
