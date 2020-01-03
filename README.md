@@ -37,26 +37,26 @@ In the Query Analysis Tab you will see the distinct queries ordered by Query Cou
 
    <table>
    <tr style="background-color: white">
-   <td><img src="filtericon.png"/></td> 
+   <td style="background-color: white"><img src="filtericon.png"/></td> 
    <td>A Filter to show only the query log records for this query in the Query Log Tab.</td>
     </tr>
    <tr style="background-color: white">
-    <td><img  src="highlighticon.png"/></td>
+    <td style="background-color: white"><img  src="highlighticon.png"/></td>
     <td>Highlight this query in the query log records in the Query Log Tab. It can be useful to see which queries are send to the server around the same time. </td>
     </tr>
    <tr style="background-color: white">
-     <td><img  src="timelineicon.png"/></td>
+     <td style="background-color: white"><img  src="timelineicon.png"/></td>
     <td>Experimental; Show the occurrences of this query in the Query Timeline tab. </td>
     </tr>
    <tr style="background-color: white">
-     <td><img src="explainicon.png"/></td> 
+     <td style="background-color: white"><img src="explainicon.png"/></td> 
      <td>The query plan will be shown (explain). This is only available when there is a connection to a database and the query is not executed on the database 'system' (version 4+):
     
     <img width="400px" src="explainquery.png"/>
     </td>
     </tr>
    <tr style="background-color: white">
-    <td><img src="dbicon.png"/></td>
+    <td style="background-color: white"><img src="dbicon.png"/></td>
     <td>When the query log file is from a version 4+ server then a label with the database name is shown where this query was executed on.</td>
     </tr>
    </table> 
