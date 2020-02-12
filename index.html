@@ -39,6 +39,7 @@
         <a id="first" class="active item" data-tab="first">Query Analysis</a>
         <a id="second" class="item" data-tab="second">Query Log</a>
         <a id="third" class="item" data-tab="third">Query Timeline</a>
+        <a id="vierde" class="item" data-tab="vierde">Query Log Settings</a>
     </div>
     <div id="appSummary" class="ui bottom attached active tab segment" data-tab="first" ></div>
     <div id="appLogFile" class="ui bottom attached tab segment" data-tab="second" style="height: 662px; overflow-x:auto;font-size: .7em; font-family: monospace; margin: 1em 0;"></div>
@@ -64,6 +65,9 @@
             </table>
             <div id="qcounts" width="1850px" height="600px"></div>
         </div>
+     <div id="queryLogSettingsTabContent" class="ui bottom attached tab segment" data-tab="vierde" >
+         <div id="queryLogSettings">show current settings here, needs a database connection for this</div>
+     </div>
     </div>
     <div id="appCurrentQueries" class="ui bottom attached tab segment" data-tab="tabCurrentQueries" style="height: 862px; overflow-x:auto;font-size: .8em; margin: 1em 0;" >
         <div id="queryListApp" style="width: 1860px;"></div>
@@ -153,7 +157,7 @@
 
 
 
-<div style="font-size: .7em">Neo4j Query Log Analyzer version 1.0.1</div>
+<div style="font-size: .7em">Neo4j Query Log Analyzer version 1.0.2</div>
 <script>
     $('.menu .item')
         .tab()
@@ -165,7 +169,8 @@
     }
     var querylistapp = new QueryList(window.neo4jDesktopApi);
     var qan = new QueryAnalyzer();
-    var nac = new NeoAccessor(window.neo4jDesktopApi,querylistapp );
+    var nac = new NeoAccessor(window.neo4jDesktopApi,[querylistapp, qan] );
+
     var msg = document.getElementById("msg");
 
     function loadFile() {

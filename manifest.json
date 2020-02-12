@@ -1,0 +1,10 @@
+{
+  "name" : "query-log-analyzer",
+  "description" : "Analyze Queries from the query log file, current queries and query statistics ",
+  "icons" : [  {
+    "src": "qloganalyzer_icon.png",
+    "type": "png"
+  }
+  ],
+  "homepage": "https://github.com/kvegter/query-analyzer-app/blob/master/README.md"
+}

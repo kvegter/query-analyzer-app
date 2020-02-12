@@ -1,4 +1,10 @@
 
+### 1.0.2
+
+* maintenance updates
+* Dynamically switching query logging is on and off
+* When apoc is avialable stream a query.log file directly from the server
+
 ### 1.0.1
 
 * added explain query functionality
