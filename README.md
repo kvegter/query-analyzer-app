@@ -19,10 +19,11 @@ So even without the query log file you can now check the query load on your neo4
 
 ## Query Log 
 
-The Query Log Analyzer needs a query.log file. You can upload this file to the tool and then the tool will analyze this file. After analyzing the file the following message will be shown:
+The Analyzer File function needs a query.log to be uploaded, when apoc is installed then it is possible to analyze the current query.log file on the server. the Analyze Current Log function is available. Both functions will analyze the query log file and after that the following message will be shown:
+
 <img src="qla.png"/>
 
-In this example the query log file has 26 rows (each query one row) and 6 distinct queries are found. These 6 distinct queries are shown in the “Query Analysis” tab where you can find per query the statistics. 
+In this example the query log file has 985 rows (each query one row) and 61 distinct queries are found. These 61 distinct queries are shown in the “Query Analysis” tab where you can find per query the statistics. 
 
 #### Query Analysis
 In the Query Analysis Tab you will see the distinct queries ordered by Query Count * Avg Time descending. Which means that the most expensive query from the log file is placed on top.
