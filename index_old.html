@@ -20,77 +20,64 @@
 </head>
 <body>
 <div class="container" style="max-width: 99%; margin: 1em auto;">
-    <table width="100%">
-        <tr><td width="150" style="min-width: 150px">
-            <div class="ui inverted vertical labeled icon ui push left thin visible sidebar menu">
-                <a id="topQueryLog" class="active item" data-tab="tabQueryLog"><i aria-hidden="true" class="file large icon"></i>Query Log</a>
-                <a id="topCurrentQueries" class="item" data-tab="tabCurrentQueries"><i aria-hidden="true" class="spinner  icon"></i>Current Queries</a>
-                <a id="topTraceQueries" class="item" data-tab="tabTraceQueries"><i aria-hidden="true" class="microchip large icon"></i>Query Stats</a>
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <br/><br/><br/><br/><br/><br/><br/><br/>
-                <div class="item" style="font-size: .7em">Neo4j Query Log Analyzer version 1.0.2</div>
-
-            </div>
-
-        </td><td>
-            <div id="appQueryLog" class="ui active tab segment" data-tab="tabQueryLog" style=" height: 862px; overflow-x:auto; margin: 0px">
-                <form class="ui form" onsubmit="return false">
-                    <table>
-                        <tr><td><input class="ui input" type="file" id="queryLogFile" onChange="onUploadFile();"/></td>
-                            <td><button id="analyseFileButton" class="ui positive basic button disabled " onClick="loadFile();">Analyze File</button></td><td><button id="analyseStreamButton" class="ui positive basic button disabled " onClick="qan.analyseLogStream();">Analyze Current Log</button></td><td><div id="msg"></div></td>
-                        </tr>
-                    </table>
-
-                </form>
-                <div class="ui top attached tabular menu">
-                    <a id="first" class="active item" data-tab="first">Query Analysis</a>
-                    <a id="second" class="item" data-tab="second">Query Log</a>
-                    <a id="third" class="item" data-tab="third">Query Timeline</a>
-                    <a id="vierde" class="item" data-tab="vierde">Query Log Settings</a>
-                </div>
-                <div id="appSummary" class="ui bottom attached active tab segment" data-tab="first" style="height: 715px; width:1715px; overflow-x:hidden;  margin: 0px;" ></div>
-                <div id="appLogFile" class="ui bottom attached tab segment" data-tab="second" style="height: 715px; width:1715px; overflow-x:auto; margin: 0px;"></div>
-                <div id="queryPerTime" class="ui bottom attached tab segment" data-tab="third" style="height: 715px;">
-                    <div class="ui message">
-                        <div class="header">Experimental!!!</div><p>We have the logDate now which is not the same as the query start date for this experiment we assume that the query start date is logDate - queryTime. Also we see only the queries which are taking more time as defined in the "dbms.logs.query.threshold"</p></div>
-                    <table width="100%">
-                        <tr>
-                            <td width="200px">
-                                <div class="ui right labeled input">
-                                    <input id="bucketMinutes" type="number" placeholder="..." value=5 min=1 onchange="let dummy = qan._analyseQueriesPerMinuteUnit();">
-                                    <div class="ui basic label">
-                                        min.
-                                    </div>
-                                </div></td>
-                            <td with="180px">
-                                <button id="qtqShowAll" class="ui teal button" onClick="let d = qan._showAllQtQ();">Show All</button>
-                            </td>
-                            <td style="min-width: 1320px;">
-                                <div id="qtq"></div>
-                            </td>
-                        </tr>
-                    </table>
-                    <div id="qcounts" width="1850px" height="600px"></div>
-                </div>
-                <div id="queryLogSettingsTabContent" class="ui bottom attached tab segment" data-tab="vierde" >
-                    <div id="queryLogSettings">show current settings here, needs a database connection for this</div>
-                </div>
-            </div>
-
-            <div id="appCurrentQueries" class="ui tab segment" data-tab="tabCurrentQueries" style="height: 862px; overflow-x:auto;font-size: .8em; margin: 0px;" >
-                <div id="queryListApp" ></div>
-                <table width="100%"><tr><td><div id="curQueriesMessage">Need connection to database server to use this function</div></td></tr></table>
-            </div>
-            <div id="appTraceQueries" class="ui tab segment" data-tab="tabTraceQueries"  style="height: 862px; overflow-x:auto;font-size: .8em; margin: 0px;">
-                <div id="traceQueryApp" ></div>
-                <table width="100%"><tr><td><div id="curTraceQueriesMessage">You will need to be connected to a database version of 3.5.4 or higher to have this functionality</div></td></tr></table>
-            </div>
 
 
-        </td></tr>
-    </table>
+    <div class="ui top attached tabular menu">
+        <a id="topQueryLog" class="active item" data-tab="tabQueryLog">Query Log</a>
+        <a id="topCurrentQueries" class="item" data-tab="tabCurrentQueries">Current Queries</a>
+        <a id="topTraceQueries" class="item" data-tab="tabTraceQueries">Query Stats</a>
+    </div>
+    <div id="appQueryLog" class="ui left attached active tab segment" data-tab="tabQueryLog" >
+    <form class="ui form" onsubmit="return false">
+        <table>
+            <tr><td><input class="ui input" type="file" id="queryLogFile" onChange="onUploadFile();"/></td>
+                <td><button id="analyseFileButton" class="ui positive basic button disabled " onClick="loadFile();">Analyze File</button></td><td><button id="analyseStreamButton" class="ui positive basic button disabled " onClick="qan.analyseLogStream();">Analyze Current Log</button></td><td><div id="msg"></div></td>
+            </tr>
+        </table>
 
+    </form>
+    <div class="ui top attached tabular menu">
+        <a id="first" class="active item" data-tab="first">Query Analysis</a>
+        <a id="second" class="item" data-tab="second">Query Log</a>
+        <a id="third" class="item" data-tab="third">Query Timeline</a>
+        <a id="vierde" class="item" data-tab="vierde">Query Log Settings</a>
+    </div>
+    <div id="appSummary" class="ui bottom attached active tab segment" data-tab="first" ></div>
+    <div id="appLogFile" class="ui bottom attached tab segment" data-tab="second" style="height: 662px; overflow-x:auto;font-size: .8em; font-family: monospace; margin: 1em 0;"></div>
+    <div id="queryPerTime" class="ui bottom attached tab segment" data-tab="third">
+        <div class="ui message">
+            <div class="header">Experimental!!!</div><p>We have the logDate now which is not the same as the query start date for this experiment we assume that the query start date is logDate - queryTime. Also we see only the queries which are taking more time as defined in the "dbms.logs.query.threshold"</p></div>
+            <table width="100%">
+                <tr>
+                    <td width="200px">
+                        <div class="ui right labeled input">
+                            <input id="bucketMinutes" type="number" placeholder="..." value=5 min=1 onchange="let dummy = qan._analyseQueriesPerMinuteUnit();">
+                            <div class="ui basic label">
+                                min.
+                            </div>
+                        </div></td>
+                    <td with="180px">
+                        <button id="qtqShowAll" class="ui teal button" onClick="let d = qan._showAllQtQ();">Show All</button>
+                    </td>
+                    <td style="min-width: 1420px;">
+                        <div id="qtq"></div>
+                    </td>
+                </tr>
+            </table>
+            <div id="qcounts" width="1850px" height="600px"></div>
+        </div>
+     <div id="queryLogSettingsTabContent" class="ui bottom attached tab segment" data-tab="vierde" >
+         <div id="queryLogSettings">show current settings here, needs a database connection for this</div>
+     </div>
+    </div>
+    <div id="appCurrentQueries" class="ui bottom attached tab segment" data-tab="tabCurrentQueries" style="height: 862px; overflow-x:auto;font-size: .8em; margin: 1em 0;" >
+        <div id="queryListApp" style="width: 1860px;"></div>
+        <table width="100%"><tr><td><div id="curQueriesMessage">Need connection to database server to use this function</div></td></tr></table>
+    </div>
+    <div id="appTraceQueries" class="ui bottom attached tab segment" data-tab="tabTraceQueries"  style="height: 862px; overflow-x:auto;font-size: .8em; margin: 1em 0;">
+        <div id="traceQueryApp" style="width: 1860px;"></div>
+        <table width="100%"><tr><td><div id="curTraceQueriesMessage">You will need to be connected to a database version of 3.5.4 or higher to have this functionality</div></td></tr></table>
+    </div>
 
 
 </div>
@@ -138,7 +125,7 @@
                 <div class="ui warning message"></div>
             </div>            <div class="required field"><label>Scheme</label>
             <div class="required field"><div class="ui input">
-                <input id="f_scheme" placeholder="Scheme" required="" type="text" value="bolt">
+                <input id="f_scheme" placeholder="Scheme" required="" type="text" value="neo4j">
             </div>
             </div>
             <div class="ui warning message"></div>
@@ -171,7 +158,10 @@
 
 
 
+<div style="font-size: .7em">Neo4j Query Log Analyzer version 1.0.2</div>
 <script>
+
+
     $('.menu .item')
         .tab()
     ;
@@ -208,21 +198,20 @@
     // initializing the querylist app
     async function initApp() {
         await nac.init();
+        // if there is a desktop set the window size
         if (window.neo4jDesktopApi) {
             window.resizeTo(1920, 1080); // FHD screen
         }
     }
     initApp();
 
-
 </script>
 <style>
     .summary_table {
-        width: 1685px;
+        width: 1780px;
         table-layout: fixed;
         border-collapse: collapse;
         word-wrap: break-word;
-        font-size: 1.0em;
     }
     .summary_table th {
         text-decoration: none;
@@ -236,45 +225,45 @@
     }
     .summary_table td:nth-child(1),
     .summary_table th:nth-child(1) {
-        width: 290px;
+        width: 269px;
     }
     .summary_table td:nth-child(2),
     .summary_table th:nth-child(2) {
-        width: 130px;
+        width: 150px;
     }
     .summary_table td:nth-child(3),
     .summary_table th:nth-child(3) {
-        width: 130px;
+        width: 150px;
     }
     .summary_table td:nth-child(4),
     .summary_table th:nth-child(4) {
-        width: 130px;
+        width: 150px;
     }.summary_table td:nth-child(5),
      .summary_table th:nth-child(5) {
-        width: 130px;
+        width: 150px;
     }
     .summary_table td:nth-child(6),
     .summary_table th:nth-child(6) {
-        width: 130px;
+        width: 150px;
     }
     .summary_table td:nth-child(7),
     .summary_table th:nth-child(7) {
-        width: 130px;
+        width: 150px;
     }
     .summary_table td:nth-child(8),
     .summary_table th:nth-child(8) {
-        width: 130px;
+        width: 150px;
     }
     .summary_table td:nth-child(9),
     .summary_table th:nth-child(9) {
-        width: 145px;
+        width: 155px;
     }
     .summary_table td:nth-child(10),
     .summary_table th:nth-child(10) {
-        width: 320px;
+        width: 290px;
     }
     .summary_table thead {
-        background-color: #e1eddd;
+        background-color: #63B345;
         color: #000000;
     }
     .summary_table thead tr {
@@ -283,14 +272,13 @@
     }
     .summary_table tbody {
         display: block;
-        overflow-y: auto;
-        overflow-x: hidden;
-        width: 1680px;
-        height: 640px;
+        overflow: auto;
+        width: 1780px;
+        height: 600px;
     }
     .old_ie_wrapper {
         height: 600px;
-        width: 1680px;
+        width: 1780px;
         overflow-x: hidden;
         overflow-y: auto;
     }
@@ -303,7 +291,6 @@
         table-layout: fixed;
         border-collapse: collapse;
         word-wrap: break-word;
-        font-size: 0.9em;
     }
     .ql_table th {
         text-decoration: none;
@@ -379,7 +366,7 @@
         width: 15600px;
     }
     .ql_table thead {
-        background-color: #e1eddd;
+        background-color: #63B345;
         color: #000000;
     }
     .ql_table thead tr {
@@ -390,12 +377,12 @@
         display: block;
         overflow: auto;
         width: 18200px;
-        height: 610px;
+        height: 550px;
     }
 
 
     .curq_table {
-        width: 1680px;
+        width: 1830px;
         table-layout: fixed;
         border-collapse: collapse;
         word-wrap: break-word;
@@ -417,18 +404,18 @@
     }
     .curq_table td:nth-child(2),
     .curq_table th:nth-child(2) {
-        width: 90px;
+        width: 100px;
     }
     .curq_table td:nth-child(3),
     .curq_table th:nth-child(3) {
-        width: 70px;
+        width: 75px;
     }
     .curq_table td:nth-child(4),
     .curq_table th:nth-child(4) {
-        width: 70px;
+        width: 75px;
     }.curq_table td:nth-child(5),
      .curq_table th:nth-child(5) {
-         width: 70px;
+         width: 75px;
      }
     .curq_table td:nth-child(6),
     .curq_table th:nth-child(6) {
@@ -436,62 +423,62 @@
     }
     .curq_table td:nth-child(7),
     .curq_table th:nth-child(7) {
-        width: 70px;
+        width: 75px;
     }
     .curq_table td:nth-child(8),
     .curq_table th:nth-child(8) {
-        width: 115px;
+        width: 125px;
     }
     .curq_table td:nth-child(9),
     .curq_table th:nth-child(9) {
-        width: 70px;
+        width: 75px;
     }
     .curq_table td:nth-child(10),
     .curq_table th:nth-child(10) {
-        width: 95px;
+        width: 100px;
     }
     .curq_table td:nth-child(11),
     .curq_table th:nth-child(11) {
-        width: 90px;
+        width: 100px;
     }
     .curq_table td:nth-child(12),
     .curq_table th:nth-child(12) {
-        width: 90px;
+        width: 100px;
     }
     .curq_table td:nth-child(13),
     .curq_table th:nth-child(13) {
-        width: 70px;
+        width: 75px;
     }
     .curq_table td:nth-child(14),
     .curq_table th:nth-child(14) {
-        width: 70px;
+        width: 75px;
     }
     .curq_table td:nth-child(15),
     .curq_table th:nth-child(15) {
-        width: 70px;
+        width: 75px;
     }
     .curq_table td:nth-child(16),
     .curq_table th:nth-child(16) {
-        width: 70px;
+        width: 75px;
     }
     .curq_table td:nth-child(17),
     .curq_table th:nth-child(17) {
-        width: 70px;
+        width: 75px;
     }
     .curq_table td:nth-child(18),
     .curq_table th:nth-child(18) {
-        width: 70px;
+        width: 75px;
     }
     .curq_table td:nth-child(19),
     .curq_table th:nth-child(19) {
-        width: 90px;
+        width: 100px;
     }
     .curq_table td:nth-child(20),
     .curq_table th:nth-child(20) {
-        width: 70px;
+        width: 75px;
     }
     .curq_table thead {
-        background-color: #e1eddd;
+        background-color: #63B345;
         color: #000000;
     }
     .curq_table thead tr {
@@ -501,12 +488,12 @@
     .curq_table tbody {
         display: block;
         overflow: auto;
-        width: 1680px;
+        width: 1830px;
         height: 600px;
     }
     .old_ie_wrapper {
         height: 600px;
-        width: 1680px;
+        width: 1830px;
         overflow-x: hidden;
         overflow-y: auto;
     }
@@ -516,7 +503,7 @@
 
 
     .trace_table {
-        width: 1680px;
+        width: 1830px;
         table-layout: fixed;
         border-collapse: collapse;
         word-wrap: break-word;
@@ -538,7 +525,7 @@
     }
     .trace_table td:nth-child(2),
     .trace_table th:nth-child(2) {
-        width: 75px;
+        width: 100px;
     }
     .trace_table td:nth-child(3),
     .trace_table th:nth-child(3) {
@@ -546,7 +533,7 @@
     }
     .trace_table td:nth-child(4),
     .trace_table th:nth-child(4) {
-        width: 740px;
+        width: 790px;
     }.trace_table td:nth-child(5),
      .trace_table th:nth-child(5) {
          width: 115px;
@@ -568,7 +555,7 @@
         width: 135px;
     }
     .trace_table thead {
-        background-color: #e1eddd;
+        background-color: #63B345;
         color: #000000;
     }
     .trace_table thead tr {
@@ -578,12 +565,12 @@
     .trace_table tbody {
         display: block;
         overflow: auto;
-        width: 1680px;
+        width: 1830px;
         height: 600px;
     }
     .old_ie_wrapper {
         height: 600px;
-        width: 1680px;
+        width: 1830px;
         overflow-x: hidden;
         overflow-y: auto;
     }
