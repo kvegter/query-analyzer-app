@@ -1,9 +1,10 @@
 
 ### 1.0.2
 
-* maintenance updates
-* Dynamically switching query logging is on and off
+* Ppdated layout with a left bar for access to the Query Log, Current Queries and Query Stats
+* Dynamically change query log settings
 * When apoc is avialable stream a query.log file directly from the server
+* Updates with respect to Neo4j 4.1 (query plan)
 
 ### 1.0.1
 
