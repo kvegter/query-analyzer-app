@@ -1,10 +1,14 @@
 
 ### 1.0.2
+* Updated layout with a left bar for access to the Query Log, Current Queries and Query Stats
+* Stream the current query.log entries directly from the server
+* Can handle Neo4j Cluster and Neo4j Aura configurations, getting the query logs of all the servers in one view
+* Change query log configuration (dynamic settings)
+* Updates with respect to Neo4j 4.1 (query plan, query log record format)
+* fixes for supporting encrypted connections
+* show error messages if they are logged (v4+)
 
-* Ppdated layout with a left bar for access to the Query Log, Current Queries and Query Stats
-* Dynamically change query log settings
-* When apoc is avialable stream a query.log file directly from the server
-* Updates with respect to Neo4j 4.1 (query plan)
+(This release supports query log information until Neo4j v4.1)
 
 ### 1.0.1
 

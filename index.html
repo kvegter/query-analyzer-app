@@ -27,8 +27,7 @@
                 <a id="topCurrentQueries" class="item" data-tab="tabCurrentQueries"><i aria-hidden="true" class="spinner  icon"></i>Current Queries</a>
                 <a id="topTraceQueries" class="item" data-tab="tabTraceQueries"><i aria-hidden="true" class="microchip large icon"></i>Query Stats</a>
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <br/><br/><br/><br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/><br/><div id="connectionInfo" class="item" style="font-size: .7em"></div><br/><br/>
                 <div class="item" style="font-size: .7em">Neo4j Query (Log) Analyzer version 1.0.2</div>
             </div>
 
@@ -73,17 +72,17 @@
                     <div id="qcounts" width="1850px" height="600px"></div>
                 </div>
                 <div id="queryLogSettingsTabContent" class="ui bottom attached tab segment" data-tab="vierde" >
-                    <div id="queryLogSettings">This function needs a database connection with admin rights on neo4j 3.2 and higher</div>
+                    <div id="queryLogSettings"><div class='ui segment'>A connection with admin rights to a database with version 3.2 and higher is needed to use this function.</div></div>
                 </div>
             </div>
 
             <div id="appCurrentQueries" class="ui tab segment" data-tab="tabCurrentQueries" style="height: 862px; overflow-x:auto;font-size: .8em; margin: 0px;" >
                 <div id="queryListApp" ></div>
-                <table width="100%"><tr><td><div id="curQueriesMessage">Need connection to database server to use this function</div></td></tr></table>
+                <table width="100%"><tr><td><div id="curQueriesMessage"><div class='ui segment'>A connection to a database is needed to use this function</div></div></td></tr></table>
             </div>
             <div id="appTraceQueries" class="ui tab segment" data-tab="tabTraceQueries"  style="height: 862px; overflow-x:auto;font-size: .8em; margin: 0px;">
                 <div id="traceQueryApp" ></div>
-                <table width="100%"><tr><td><div id="curTraceQueriesMessage">You will need to be connected to a database with version 3.5.4 or higher to have this functionality</div></td></tr></table>
+                <table width="100%"><tr><td><div id="curTraceQueriesMessage"><div class='ui segment'>A connection to a database with version 3.5.4 or higher is needed to use this function.</div></div></td></tr></table>
             </div>
 
         </td></tr>
@@ -112,18 +111,18 @@
 
 
 <!-- Connect to Graph Form -->
-<div class="ui tiny modal" id="connectModal" style="margin-top: 0px;">
+<div class="ui tiny transition visible modal" id="connectModal" style="margin-top: 0px;" >
     <div class="header">Connect to a graph</div>
     <div class="content">
         <div style="display: block; width: 320px; margin-left: auto; margin-right: auto;">
             <img class="ui small image" alt="Neo4j db analyzer" src="qloganalyzer_icon.png" style="display: inline;">
             <img class="ui small image" alt="Neo4j Graph Database" src="neo4j_logo_globe.png" style="display: inline;">
         </div>
-        <form class="ui form" onkeydown="nac.onFormChange();">
+        <form class="ui form" onkeydown="nac.onFormChange();" onClick="nac.onFormChange();">
             <div class="required field"><label>Host</label>
                 <div class="field">
                     <div class="ui input">
-                        <input id="f_host" placeholder="Host" type="text" value="localhost">
+                        <input id="f_host" placeholder="Host" type="text" value="192.168.56.102">
                     </div>
                 </div>
                 <div class="ui warning message"></div>
@@ -134,20 +133,29 @@
                 </div>
                 </div>
                 <div class="ui warning message"></div>
-            </div>            <div class="required field"><label>Scheme</label>
-            <div class="required field"><div class="ui input">
-                <input id="f_scheme" placeholder="Scheme" required="" type="text" value="bolt">
             </div>
+            <div class="required field"><label>Scheme</label>
+                <div class="required field"><div class="ui input">
+                    <input id="f_scheme" placeholder="Scheme" required="" type="text" value="bolt">
+                </div>
             </div>
+                <div class="field"><label>database name (neo4j version 4+) </label>
+                    <div class="required field"><div class="ui input">
+                        <input id="f_dbname" placeholder="dbname version 4 and higher" required="" type="text" value="">
+                    </div>
+                    </div>
             <div class="ui warning message"></div>
         </div>
             <div class="required field"><label>Username</label>
-            <div class="required field"><div class="ui input">
-                <input id="f_username" placeholder="Username" required="" type="text" value="neo4j"></div></div>
+                <div class="required field">
+                    <div class="ui input">
+                        <input id="f_username" placeholder="Username" required="" type="text" value="neo4j">
+                    </div>
+                </div>
             <div class="ui warning message"></div></div><div class="required field"><label>Password</label>
             <div class="field"><div class="ui input"><input id="f_password" placeholder="Password" type="password" value=""></div></div>
             <div class="ui warning message"></div></div><div class="field"><div class="ui checkbox">
-            <input name="encrypted" id="f_cbencrypted" tabindex="0" type="checkbox" value=""><label>Encrypt Connection</label>
+            <input name="encrypted" id="f_cbencrypted"  tabindex="0" type="checkbox" value=""><label>Encrypt Connection</label><br/>
         </div></div>
         </form>
     </div>
@@ -169,7 +177,7 @@
 
 
 
-<script>
+<script async>
     $('.menu .item')
         .tab()
     ;
@@ -206,11 +214,15 @@
     // initializing the querylist app
     async function initApp() {
         await nac.init();
-        if (window.neo4jDesktopApi) {
-            window.resizeTo(1920, 1080); // FHD screen
-        }
     }
     initApp();
+
+    if (window.neo4jDesktopApi) {
+        // console.log("Resizing window to (1920, 1080) ")
+        //window.resizeTo(1920, 1080); // FHD screen
+        window.resizeTo(1900,1080);
+    }
+
 
 
 </script>
@@ -315,11 +327,11 @@
     }
     .ql_table td:nth-child(1),
     .ql_table th:nth-child(1) {
-        width: 200px;
+        width: 80px;
     }
     .ql_table td:nth-child(2),
     .ql_table th:nth-child(2) {
-        width: 100px;
+        width: 200px;
     }
     .ql_table td:nth-child(3),
     .ql_table th:nth-child(3) {
@@ -328,14 +340,14 @@
     .ql_table td:nth-child(4),
     .ql_table th:nth-child(4) {
         width: 100px;
-    }.ql_table td:nth-child(5),
-     .ql_table th:nth-child(5) {
+    }
+    .ql_table td:nth-child(5),
+    .ql_table th:nth-child(5) {
+        width: 100px;
+    }.ql_table td:nth-child(6),
+     .ql_table th:nth-child(6) {
          width: 100px;
      }
-    .ql_table td:nth-child(6),
-    .ql_table th:nth-child(6) {
-        width: 100px;
-    }
     .ql_table td:nth-child(7),
     .ql_table th:nth-child(7) {
         width: 100px;
@@ -350,23 +362,23 @@
     }
     .ql_table td:nth-child(10),
     .ql_table th:nth-child(10) {
-        width: 150px;
+        width: 100px;
     }
     .ql_table td:nth-child(11),
     .ql_table th:nth-child(11) {
-        width: 150px;
+        width: 100px;
     }
     .ql_table td:nth-child(12),
     .ql_table th:nth-child(12) {
-        width: 400px;
+        width: 150px;
     }
     .ql_table td:nth-child(13),
     .ql_table th:nth-child(13) {
-        width: 250px;
+        width: 150px;
     }
     .ql_table td:nth-child(14),
     .ql_table th:nth-child(14) {
-        width: 350px;
+        width: 400px;
     }
     .ql_table td:nth-child(15),
     .ql_table th:nth-child(15) {
@@ -374,7 +386,15 @@
     }
     .ql_table td:nth-child(16),
     .ql_table th:nth-child(16) {
-        width: 15600px;
+        width: 350px;
+    }
+    .ql_table td:nth-child(17),
+    .ql_table th:nth-child(17) {
+        width: 250px;
+    }
+    .ql_table td:nth-child(18),
+    .ql_table th:nth-child(18) {
+        width: 15400px;
     }
     .ql_table thead {
         background-color: #e1eddd;
@@ -393,7 +413,7 @@
 
 
     .curq_table {
-        width: 1680px;
+        width: 1690px;
         table-layout: fixed;
         border-collapse: collapse;
         word-wrap: break-word;
@@ -499,12 +519,12 @@
     .curq_table tbody {
         display: block;
         overflow: auto;
-        width: 1680px;
+        width: 1690px;
         height: 600px;
     }
     .old_ie_wrapper {
         height: 600px;
-        width: 1680px;
+        width: 1690px;
         overflow-x: hidden;
         overflow-y: auto;
     }
@@ -514,7 +534,7 @@
 
 
     .trace_table {
-        width: 1680px;
+        width: 1690px;
         table-layout: fixed;
         border-collapse: collapse;
         word-wrap: break-word;
@@ -540,7 +560,7 @@
     }
     .trace_table td:nth-child(3),
     .trace_table th:nth-child(3) {
-        width: 160px;
+        width: 158px;
     }
     .trace_table td:nth-child(4),
     .trace_table th:nth-child(4) {
@@ -576,12 +596,12 @@
     .trace_table tbody {
         display: block;
         overflow: auto;
-        width: 1680px;
+        width: 1690px;
         height: 600px;
     }
     .old_ie_wrapper {
         height: 600px;
-        width: 1680px;
+        width: 1690px;
         overflow-x: hidden;
         overflow-y: auto;
     }
