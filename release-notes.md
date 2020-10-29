@@ -2,6 +2,7 @@
 ### 1.0.2
 _This release supports query log information from Neo4j version 3.1 to v4.2_
 
+* Filter the queries in the Query Analysis tab
 * Stream the current query.log entries directly from the server (v3.5+, apoc required)
 * Supports Neo4j Cluster and Neo4j Aura configurations, getting the query logs of all the servers in one view 
 * Change query log configuration (dynamic settings)
