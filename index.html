@@ -8,6 +8,7 @@
     <title>Neo4j Query Log Analyzer</title>
     <!--<script src="https://unpkg.com/neo4j-driver@4.0.0/lib/browser/neo4j-web.min.js"></script>-->
     <script src="lib/neo4j-web.min.js"></script>
+    <script src="lib/cbvcomponents.js"></script>
     <script src="lib/NeoAccessor.js"></script>
     <script src="lib/qanalyzer.js"></script>
     <script src="lib/querylist.js"></script>
@@ -20,7 +21,7 @@
 </head>
 <body>
 <div class="container" style="max-width: 99%; margin: 1em auto;">
-    <table width="100%">
+    <table>
         <tr><td width="150" style="min-width: 150px">
             <div class="ui inverted vertical labeled icon ui push left thin visible sidebar menu">
                 <a id="topQueryLog" class="active item" data-tab="tabQueryLog"><i aria-hidden="true" class="file large icon"></i>Query Log</a>
@@ -30,13 +31,12 @@
                 <br/><br/><br/><br/><br/><br/><div id="connectionInfo" class="item" style="font-size: .7em"></div><br/><br/>
                 <div class="item" style="font-size: .7em">Neo4j Query (Log) Analyzer version 1.0.2</div>
             </div>
-
-        </td><td>
-            <div id="appQueryLog" class="ui active tab segment" data-tab="tabQueryLog" style=" height: 862px; overflow-x:auto; margin: 0px">
+        </td><td width="1660px">
+            <div id="appQueryLog" class="ui active tab segment" data-tab="tabQueryLog" style=" height: 890px; overflow-x:auto; margin: 0px">
                 <form class="ui form" onsubmit="return false">
                     <table>
-                        <tr><td><input class="ui input" type="file" id="queryLogFile" onChange="onUploadFile();"/></td>
-                            <td><button id="analyseFileButton" class="ui positive basic button disabled " onClick="loadFile();">Analyze File</button></td><td><button id="analyseStreamButton" class="ui positive basic button disabled " onClick="qan.analyseLogStream();">Analyze Current Log</button></td><td><div id="msg"></div></td>
+                        <tr><td><input style="width: 230px;" class="ui input" type="file" id="queryLogFile" onChange="onUploadFile();"/></td>
+                            <td><button id="analyseFileButton" class="ui positive basic button disabled " onClick="loadFile();">Analyze File</button></td><td><button id="analyseStreamButton" class="ui positive basic button disabled " onClick="qan.analyseLogStream();">Analyze Current Log</button></td><td><div id="analyseMessage"></div></td>
                         </tr>
                     </table>
 
@@ -45,11 +45,12 @@
                     <a id="first" class="active item" data-tab="first">Query Analysis</a>
                     <a id="second" class="item" data-tab="second">Query Log</a>
                     <a id="third" class="item" data-tab="third">Query Timeline</a>
+                    <a id="drieeneenhalf" class="item" data-tab="drieeneenhalf">Unfinished Queries</a>
                     <a id="vierde" class="item" data-tab="vierde">Query Log Settings</a>
                 </div>
-                <div id="appSummary" class="ui bottom attached active tab segment" data-tab="first" style="height: 715px; width:1715px; overflow-x:hidden;  margin: 0px;" ></div>
-                <div id="appLogFile" class="ui bottom attached tab segment" data-tab="second" style="height: 715px; width:1715px; overflow-x:auto; margin: 0px;"></div>
-                <div id="queryPerTime" class="ui bottom attached tab segment" data-tab="third" style="height: 715px;">
+                <div id="appSummary" class="ui bottom attached active tab segment" data-tab="first" style="height: 730px; width:1650px; overflow-x:hidden;  margin: 0px;" ></div>
+                <div id="appLogFile" class="ui bottom attached tab segment" data-tab="second" style="height: 730px; width:1650px; overflow-x:auto; margin: 0px;"></div>
+                <div id="queryPerTime" class="ui bottom attached tab segment" data-tab="third" style="height: 730px; width:1650px;">
                     <div class="ui message">
                         <div class="header">Experimental!!!</div><p>We have the logDate now which is not the same as the query start date for this experiment we assume that the query start date is logDate - queryTime. Also we see only the queries which are taking more time as defined in the "dbms.logs.query.threshold"</p></div>
                     <table width="100%">
@@ -64,23 +65,35 @@
                             <td with="180px">
                                 <button id="qtqShowAll" class="ui teal button" onClick="let d = qan._showAllQtQ();">Show All</button>
                             </td>
-                            <td style="min-width: 1320px;">
+                            <td style="min-width: 1240px;">
                                 <div id="qtq"></div>
                             </td>
                         </tr>
                     </table>
-                    <div id="qcounts" width="1850px" height="600px"></div>
+                    <div id="qcounts" width="1850px" height="580px"></div>
                 </div>
-                <div id="queryLogSettingsTabContent" class="ui bottom attached tab segment" data-tab="vierde" >
+
+                <div id="unfinshedQueriesContent" class="ui bottom attached tab segment" data-tab="drieeneenhalf" style="height: 730px; width:1650px;" >
+                    <div id='unfinishedQueriesHeader' ><div class='ui fluid segment'>
+                        Log files created by neo4j version 4+ with the query log in VERBOSE mode also have log entries when queries are started.
+                        In this tab we show the queries which are started but not finished at the moment the log is copied and uploaded or streamed.
+                    </div></div>
+                    <div id='unfinishedQueriesFilter'>
+
+                    </div>
+                    <div id='unfinishedQueriesTable'></div>
+                </div>
+
+                <div id="queryLogSettingsTabContent" class="ui bottom attached tab segment" data-tab="vierde" style="height: 730px; width:1650px;" >
                     <div id="queryLogSettings"><div class='ui segment'>A connection with admin rights to a database with version 3.2 and higher is needed to use this function.</div></div>
                 </div>
             </div>
 
-            <div id="appCurrentQueries" class="ui tab segment" data-tab="tabCurrentQueries" style="height: 862px; overflow-x:auto;font-size: .8em; margin: 0px;" >
+            <div id="appCurrentQueries" class="ui tab segment" data-tab="tabCurrentQueries" style="height: 890px; overflow-x:auto; margin: 0px;" >
                 <div id="queryListApp" ></div>
                 <table width="100%"><tr><td><div id="curQueriesMessage"><div class='ui segment'>A connection to a database is needed to use this function</div></div></td></tr></table>
             </div>
-            <div id="appTraceQueries" class="ui tab segment" data-tab="tabTraceQueries"  style="height: 862px; overflow-x:auto;font-size: .8em; margin: 0px;">
+            <div id="appTraceQueries" class="ui tab segment" data-tab="tabTraceQueries"  style="height: 890px; overflow-x:auto; margin: 0px;">
                 <div id="traceQueryApp" ></div>
                 <table width="100%"><tr><td><div id="curTraceQueriesMessage"><div class='ui segment'>A connection to a database with version 3.5.4 or higher is needed to use this function.</div></div></td></tr></table>
             </div>
@@ -161,7 +174,7 @@
     </div>
     <div class="actions">
         <button class="ui icon positive disabled right labeled button" id="connectButton" role="button" tabindex="10" onclick="nac.processConnectForm()"><i aria-hidden="false" class="right arrow icon"></i>Connect</button>
-        <button class="ui icon positive right labeled button" id="closeButton" role="button" tabindex="20" onclick=""><i aria-hidden="false" class="right arrow icon"></i>Proceed without connecting to database</button>
+        <button class="ui icon positive right labeled button" id="closeButton" role="button" tabindex="20" onclick="nac.initNoDb()"><i aria-hidden="false" class="right arrow icon"></i>Proceed without connecting to database</button>
     </div>
 </div>
 
@@ -190,7 +203,7 @@
     var qan = new QueryAnalyzer();
     var nac = new NeoAccessor(window.neo4jDesktopApi,[querylistapp, qan] );
 
-    var msg = document.getElementById("msg");
+    let msg = document.getElementById("analyseMessage");
     function onUploadFile() {
         let logFile = document.getElementById("queryLogFile").files[0];
         if (logFile && logFile != null) {
@@ -227,389 +240,6 @@
 
 </script>
 <style>
-    .summary_table {
-        width: 1675px;
-        table-layout: fixed;
-        border-collapse: collapse;
-        word-wrap: break-word;
-        font-size: 1.0em;
-    }
-    .summary_table th {
-        text-decoration: none;
-        border-left: 1px solid darkgreen;
-    }
-    .summary_table th,
-    .summary_table td {
-        padding: 10px;
-        text-align: left;
-        border-left: 1px solid darkgreen;
-    }
-    .summary_table td:nth-child(1),
-    .summary_table th:nth-child(1) {
-        width: 290px;
-    }
-    .summary_table td:nth-child(2),
-    .summary_table th:nth-child(2) {
-        width: 130px;
-    }
-    .summary_table td:nth-child(3),
-    .summary_table th:nth-child(3) {
-        width: 130px;
-    }
-    .summary_table td:nth-child(4),
-    .summary_table th:nth-child(4) {
-        width: 130px;
-    }.summary_table td:nth-child(5),
-     .summary_table th:nth-child(5) {
-        width: 130px;
-    }
-    .summary_table td:nth-child(6),
-    .summary_table th:nth-child(6) {
-        width: 130px;
-    }
-    .summary_table td:nth-child(7),
-    .summary_table th:nth-child(7) {
-        width: 130px;
-    }
-    .summary_table td:nth-child(8),
-    .summary_table th:nth-child(8) {
-        width: 130px;
-    }
-    .summary_table td:nth-child(9),
-    .summary_table th:nth-child(9) {
-        width: 145px;
-    }
-    .summary_table td:nth-child(10),
-    .summary_table th:nth-child(10) {
-        width: 320px;
-    }
-    .summary_table thead {
-        background-color: #e1eddd;
-        color: #000000;
-    }
-    .summary_table thead tr {
-        display: block;
-        position: relative;
-    }
-    .summary_table tbody {
-        display: block;
-        overflow-y: auto;
-        overflow-x: hidden;
-        width: 1675px;
-        height: 640px;
-    }
-    .old_ie_wrapper {
-        height: 600px;
-        width: 1675px;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-    .old_ie_wrapper tbody {
-        height: auto;
-    }
-
-    .ql_table {
-        width: 18200px;
-        table-layout: fixed;
-        border-collapse: collapse;
-        word-wrap: break-word;
-        font-size: 0.9em;
-    }
-    .ql_table th {
-        text-decoration: none;
-        border-left: 1px solid darkgreen;
-    }
-    .ql_table th,
-    .ql_table td {
-        padding: 5px;
-        text-align: left;
-        border-left: 1px solid darkgreen;
-    }
-    .ql_table td:nth-child(1),
-    .ql_table th:nth-child(1) {
-        width: 80px;
-    }
-    .ql_table td:nth-child(2),
-    .ql_table th:nth-child(2) {
-        width: 200px;
-    }
-    .ql_table td:nth-child(3),
-    .ql_table th:nth-child(3) {
-        width: 100px;
-    }
-    .ql_table td:nth-child(4),
-    .ql_table th:nth-child(4) {
-        width: 100px;
-    }
-    .ql_table td:nth-child(5),
-    .ql_table th:nth-child(5) {
-        width: 100px;
-    }.ql_table td:nth-child(6),
-     .ql_table th:nth-child(6) {
-         width: 100px;
-     }
-    .ql_table td:nth-child(7),
-    .ql_table th:nth-child(7) {
-        width: 100px;
-    }
-    .ql_table td:nth-child(8),
-    .ql_table th:nth-child(8) {
-        width: 100px;
-    }
-    .ql_table td:nth-child(9),
-    .ql_table th:nth-child(9) {
-        width: 100px;
-    }
-    .ql_table td:nth-child(10),
-    .ql_table th:nth-child(10) {
-        width: 100px;
-    }
-    .ql_table td:nth-child(11),
-    .ql_table th:nth-child(11) {
-        width: 100px;
-    }
-    .ql_table td:nth-child(12),
-    .ql_table th:nth-child(12) {
-        width: 150px;
-    }
-    .ql_table td:nth-child(13),
-    .ql_table th:nth-child(13) {
-        width: 175px;
-    }
-    .ql_table td:nth-child(14),
-    .ql_table th:nth-child(14) {
-        width: 400px;
-    }
-    .ql_table td:nth-child(15),
-    .ql_table th:nth-child(15) {
-        width: 250px;
-    }
-    .ql_table td:nth-child(16),
-    .ql_table th:nth-child(16) {
-        width: 350px;
-    }
-    .ql_table td:nth-child(17),
-    .ql_table th:nth-child(17) {
-        width: 250px;
-    }
-    .ql_table td:nth-child(18),
-    .ql_table th:nth-child(18) {
-        width: 15400px;
-    }
-    .ql_table thead {
-        background-color: #e1eddd;
-        color: #000000;
-    }
-    .ql_table thead tr {
-        display: block;
-        position: relative;
-    }
-    .ql_table tbody {
-        display: block;
-        overflow: auto;
-        width: 18200px;
-        height: 610px;
-    }
-
-
-    .curq_table {
-        width: 1690px;
-        table-layout: fixed;
-        border-collapse: collapse;
-        word-wrap: break-word;
-        border-right: 1px solid darkgreen;
-    }
-    .curq_table th {
-        text-decoration: none;
-        border-left: 1px solid darkgreen;
-    }
-    .curq_table th,
-    .curq_table td {
-        padding: 5px;
-        text-align: left;
-        border-left: 1px solid darkgreen;
-    }
-    .curq_table td:nth-child(1),
-    .curq_table th:nth-child(1) {
-        width: 100px;
-    }
-    .curq_table td:nth-child(2),
-    .curq_table th:nth-child(2) {
-        width: 90px;
-    }
-    .curq_table td:nth-child(3),
-    .curq_table th:nth-child(3) {
-        width: 70px;
-    }
-    .curq_table td:nth-child(4),
-    .curq_table th:nth-child(4) {
-        width: 70px;
-    }.curq_table td:nth-child(5),
-     .curq_table th:nth-child(5) {
-         width: 70px;
-     }
-    .curq_table td:nth-child(6),
-    .curq_table th:nth-child(6) {
-        width: 200px;
-    }
-    .curq_table td:nth-child(7),
-    .curq_table th:nth-child(7) {
-        width: 70px;
-    }
-    .curq_table td:nth-child(8),
-    .curq_table th:nth-child(8) {
-        width: 115px;
-    }
-    .curq_table td:nth-child(9),
-    .curq_table th:nth-child(9) {
-        width: 70px;
-    }
-    .curq_table td:nth-child(10),
-    .curq_table th:nth-child(10) {
-        width: 95px;
-    }
-    .curq_table td:nth-child(11),
-    .curq_table th:nth-child(11) {
-        width: 90px;
-    }
-    .curq_table td:nth-child(12),
-    .curq_table th:nth-child(12) {
-        width: 90px;
-    }
-    .curq_table td:nth-child(13),
-    .curq_table th:nth-child(13) {
-        width: 70px;
-    }
-    .curq_table td:nth-child(14),
-    .curq_table th:nth-child(14) {
-        width: 70px;
-    }
-    .curq_table td:nth-child(15),
-    .curq_table th:nth-child(15) {
-        width: 70px;
-    }
-    .curq_table td:nth-child(16),
-    .curq_table th:nth-child(16) {
-        width: 70px;
-    }
-    .curq_table td:nth-child(17),
-    .curq_table th:nth-child(17) {
-        width: 70px;
-    }
-    .curq_table td:nth-child(18),
-    .curq_table th:nth-child(18) {
-        width: 70px;
-    }
-    .curq_table td:nth-child(19),
-    .curq_table th:nth-child(19) {
-        width: 90px;
-    }
-    .curq_table td:nth-child(20),
-    .curq_table th:nth-child(20) {
-        width: 70px;
-    }
-    .curq_table thead {
-        background-color: #e1eddd;
-        color: #000000;
-    }
-    .curq_table thead tr {
-        display: block;
-        position: relative;
-    }
-    .curq_table tbody {
-        display: block;
-        overflow: auto;
-        width: 1690px;
-        height: 600px;
-    }
-    .old_ie_wrapper {
-        height: 600px;
-        width: 1690px;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-    .old_ie_wrapper tbody {
-        height: auto;
-    }
-
-
-    .trace_table {
-        width: 1690px;
-        table-layout: fixed;
-        border-collapse: collapse;
-        word-wrap: break-word;
-        word-break: break-word;
-    }
-    .trace_table th {
-        text-decoration: none;
-        border-left: 1px solid darkgreen;
-    }
-    .trace_table th,
-    .trace_table td {
-        padding: 10px;
-        text-align: left;
-        border-left: 1px solid darkgreen;
-    }
-    .trace_table td:nth-child(1),
-    .trace_table th:nth-child(1) {
-        width: 100px;
-    }
-    .trace_table td:nth-child(2),
-    .trace_table th:nth-child(2) {
-        width: 75px;
-    }
-    .trace_table td:nth-child(3),
-    .trace_table th:nth-child(3) {
-        width: 158px;
-    }
-    .trace_table td:nth-child(4),
-    .trace_table th:nth-child(4) {
-        width: 740px;
-    }.trace_table td:nth-child(5),
-     .trace_table th:nth-child(5) {
-         width: 115px;
-     }
-    .trace_table td:nth-child(6),
-    .trace_table th:nth-child(6) {
-        width: 115px;
-    }
-    .trace_table td:nth-child(7),
-    .trace_table th:nth-child(7) {
-        width: 115px;
-    }
-    .trace_table td:nth-child(8),
-    .trace_table th:nth-child(8) {
-        width: 125px;
-    }
-    .trace_table td:nth-child(9),
-    .trace_table th:nth-child(9) {
-        width: 135px;
-    }
-    .trace_table thead {
-        background-color: #e1eddd;
-        color: #000000;
-    }
-    .trace_table thead tr {
-        display: block;
-        position: relative;
-    }
-    .trace_table tbody {
-        display: block;
-        overflow: auto;
-        width: 1690px;
-        height: 600px;
-    }
-    .old_ie_wrapper {
-        height: 600px;
-        width: 1690px;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-    .old_ie_wrapper tbody {
-        height: auto;
-    }
-
-
 
     .hover {
         position:relative;
