@@ -21,7 +21,7 @@
 </head>
 <body>
 <div class="container" style="max-width: 99%; margin: 1em auto;">
-    <table>
+    <table height="100%">
         <tr><td width="150" style="min-width: 150px">
             <div class="ui inverted vertical labeled icon ui push left thin visible sidebar menu">
                 <a id="topQueryLog" class="active item" data-tab="tabQueryLog"><i aria-hidden="true" class="file large icon"></i>Query Log</a>
@@ -48,9 +48,9 @@
                     <a id="drieeneenhalf" class="item" data-tab="drieeneenhalf">Unfinished Queries</a>
                     <a id="vierde" class="item" data-tab="vierde">Query Log Settings</a>
                 </div>
-                <div id="appSummary" class="ui bottom attached active tab segment" data-tab="first" style="height: 730px; width:1650px; overflow-x:hidden;  margin: 0px;" ></div>
-                <div id="appLogFile" class="ui bottom attached tab segment" data-tab="second" style="height: 730px; width:1650px; overflow-x:auto; margin: 0px;"></div>
-                <div id="queryPerTime" class="ui bottom attached tab segment" data-tab="third" style="height: 730px; width:1650px;">
+                <div id="appSummary" class="ui bottom attached active tab segment" data-tab="first" style="height: 750px; width:1650px; overflow: hidden ;  margin: 0px;" ></div>
+                <div id="appLogFile" class="ui bottom attached tab segment" data-tab="second" style="height: 750px; width:1650px; overflow: hidden; margin: 0px;"></div>
+                <div id="queryPerTime" class="ui bottom attached tab segment" data-tab="third" style="height: 750px; width:1650px; overflow: hidden;">
                     <div class="ui message">
                         <div class="header">Experimental!!!</div><p>We have the logDate now which is not the same as the query start date for this experiment we assume that the query start date is logDate - queryTime. Also we see only the queries which are taking more time as defined in the "dbms.logs.query.threshold"</p></div>
                     <table width="100%">
@@ -73,7 +73,7 @@
                     <div id="qcounts" width="1850px" height="580px"></div>
                 </div>
 
-                <div id="unfinshedQueriesContent" class="ui bottom attached tab segment" data-tab="drieeneenhalf" style="height: 730px; width:1650px;" >
+                <div id="unfinshedQueriesContent" class="ui bottom attached tab segment" data-tab="drieeneenhalf" style="height: 750px; width:1650px; overflow: hidden;" >
                     <div id='unfinishedQueriesHeader' ><div class='ui fluid segment'>
                         Log files created by neo4j version 4+ with the query log in VERBOSE mode also have log entries when queries are started.
                         In this tab we show the queries which are started but not finished at the moment the log is copied and uploaded or streamed.
@@ -84,7 +84,7 @@
                     <div id='unfinishedQueriesTable'></div>
                 </div>
 
-                <div id="queryLogSettingsTabContent" class="ui bottom attached tab segment" data-tab="vierde" style="height: 730px; width:1650px;" >
+                <div id="queryLogSettingsTabContent" class="ui bottom attached tab segment" data-tab="vierde" style="height: 750px; width:1650px; overflow: hidden" >
                     <div id="queryLogSettings"><div class='ui segment'>A connection with admin rights to a database with version 3.2 and higher is needed to use this function.</div></div>
                 </div>
             </div>
@@ -315,21 +315,37 @@
     /*
         needed for wrapping tab's when you have a lot of databases.
     */
+
     #qj-tabs {
         display: flex !important;   /* Will not work unless defined as display: flex */
         flex-direction: row !important;
         flex-wrap: wrap !important;
     }
 
-    #tabs-menu .wrapped .item {
-        border-radius: 5px !important;
-        border: 1px lightgray solid !important; /*  Just styling for the default theme here */
+    #qj-tabs .item {
+        border-radius: 5px 5px 0px 0px !important;
+        border-top-color: lightgray !important;
+        border-top-style: solid !important;
+        border-top-width: 1px !important;
+        border-right-color: lightgray !important;
+        border-right-style: solid !important;
+        border-right-width: 1px !important;
+        border-left-color: lightgray !important;
+        border-left-style: solid !important;
+        border-left-width: 1px !important;
+        border-image-source: initial !important;
+        border-image-slice: initial !important;
+        border-image-width: initial !important;
+        border-image-outset: initial !important;
+        border-image-repeat: initial !important;
+        border-bottom: 0px;
         margin: 0 2px 2px 0 !important;
     }
 
-    #tabs-menu .wrapped .active.item {
-        background-color: lightgray;
+    #qj-tabs .active.item {
+        background-color: #e1eddd;
     }
+
 
 
 </style>
