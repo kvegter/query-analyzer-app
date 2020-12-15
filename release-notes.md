@@ -1,5 +1,5 @@
 
-### 1.0.3
+### 1.0.2
 _This release supports query log information from Neo4j version 3.1 to v4.2_
 
 * Filter the queries in the Query Analysis tab
