@@ -29,7 +29,7 @@
                 <a id="topTraceQueries" class="item" data-tab="tabTraceQueries"><i aria-hidden="true" class="microchip large icon"></i>Query Stats</a>
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <br/><br/><br/><br/><br/><br/><div id="connectionInfo" class="item" style="font-size: .7em"></div><br/><br/>
-                <div class="item" style="font-size: .7em">Neo4j Query (Log) Analyzer version 1.0.2</div>
+                <div class="item" style="font-size: .7em">Neo4j Query (Log) Analyzer version 1.0.3</div>
                 <div><a href="https://github.com/kvegter/query-analyzer-app/blob/master/README.md" target="_new" class="ui blue circular label">i</a></div>
             </div>
         </td><td width="1660px">
@@ -86,7 +86,7 @@
                 </div>
 
                 <div id="queryLogSettingsTabContent" class="ui bottom attached tab segment" data-tab="vierde" style="height: 750px; width:1650px; overflow: hidden" >
-                    <div id="queryLogSettings"><div class='ui segment'>A connection with admin rights to a database with version 3.2 and higher is needed to use this function.</div></div>
+                    <div id="queryLogSettings" style="height: 720px; overflow: auto"><div class='ui segment'>A connection with admin rights to a database with version 3.2 and higher is needed to use this function.</div></div>
                 </div>
             </div>
 
@@ -136,7 +136,7 @@
             <div class="required field"><label>Host</label>
                 <div class="field">
                     <div class="ui input">
-                        <input id="f_host" placeholder="Host" type="text" value="localhost">
+                        <input id="f_host" placeholder="Host" type="text" value="">
                     </div>
                 </div>
                 <div class="ui warning message"></div>
@@ -160,13 +160,13 @@
                     </div>
             <div class="ui warning message"></div>
         </div>
-            <div class="required field"><label>Username</label>
-                <div class="required field">
+            <div class="field"><label>Username</label>
+                <div class="field">
                     <div class="ui input">
                         <input id="f_username" placeholder="Username" required="" type="text" value="neo4j">
                     </div>
                 </div>
-            <div class="ui warning message"></div></div><div class="required field"><label>Password</label>
+            <div class="ui warning message"></div></div><div class="field"><label>Password</label>
             <div class="field"><div class="ui input"><input id="f_password" placeholder="Password" type="password" value=""></div></div>
             <div class="ui warning message"></div></div><div class="field"><div class="ui checkbox">
             <input name="encrypted" id="f_cbencrypted"  tabindex="0" type="checkbox" value=""><label>Encrypt Connection</label><br/>

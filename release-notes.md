@@ -1,3 +1,10 @@
+### 1.0.3
+_This release supports query log information from Neo4j version 3.1 to v4.3_
+
+* Support for query.log in json format
+* Capable to work with servers where security is off.
+* Cluster support: In Current Queries and Query Stats it is visible on which server in the cluster the db is the leader (blue db icon). 
+* Cluster support: Added server instance id to the unfinished queries list
 
 ### 1.0.2
 _This release supports query log information from Neo4j version 3.1 to v4.2_
@@ -11,7 +18,6 @@ _This release supports query log information from Neo4j version 3.1 to v4.2_
 * fixes for supporting encrypted connections
 * show error messages if they are logged (v4+)
 * show unfinished queries (v4+)
-
 
 ### 1.0.1
 
