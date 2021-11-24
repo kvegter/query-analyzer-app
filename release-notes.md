@@ -1,4 +1,4 @@
-### 1.0.3
+git### 1.0.3
 _This release supports query log information from Neo4j version 3.1 to v4.3_
 
 * Support for query.log in json format
