@@ -29,7 +29,7 @@
                 <a id="topTraceQueries" class="item" data-tab="tabTraceQueries"><i aria-hidden="true" class="microchip large icon"></i>Query Stats</a>
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <br/><br/><br/><br/><br/><br/><div id="connectionInfo" class="item" style="font-size: .7em"></div><br/><br/>
-                <div class="item" style="font-size: .7em">Neo4j Query (Log) Analyzer version 1.0.3</div>
+                <div class="item" style="font-size: .7em">Neo4j Query (Log) Analyzer version 1.0.4</div>
                 <div><a href="https://github.com/kvegter/query-analyzer-app/blob/master/README.md" target="_new" class="ui blue circular label">i</a></div>
             </div>
         </td><td width="1660px">
@@ -129,8 +129,8 @@
     <div class="header">Connect to a graph</div>
     <div class="content">
         <div style="display: block; width: 320px; margin-left: auto; margin-right: auto;">
+            <img class="ui small image" alt="Neo4j Graph Database" src="neo4j-icon-color.png" style="display: inline;">
             <img class="ui small image" alt="Neo4j db analyzer" src="qloganalyzer_icon.png" style="display: inline;">
-            <img class="ui small image" alt="Neo4j Graph Database" src="neo4j_logo_globe.png" style="display: inline;">
         </div>
         <form class="ui form" onkeydown="nac.onFormChange();" onClick="nac.onFormChange();">
             <div class="required field"><label>Host</label>
@@ -152,20 +152,20 @@
                 <div class="required field"><div class="ui input">
                     <input id="f_scheme" placeholder="Scheme" required="" type="text" value="bolt">
                 </div>
+                <div class="ui warning message"></div>
             </div>
-                <div class="field"><label>database name (neo4j version 4+) </label>
-                    <div class="required field"><div class="ui input">
-                        <input id="f_dbname" placeholder="dbname version 4 and higher" required="" type="text" value="">
-                    </div>
-                    </div>
-            <div class="ui warning message"></div>
-        </div>
+            <div class="field"><label>database name (neo4j version 4+) </label>
+                <div class="required field"><div class="ui input">
+                    <input id="f_dbname" placeholder="dbname version 4 and higher" required="" type="text" value="">
+                </div>
+            </div>
             <div class="field"><label>Username</label>
                 <div class="field">
                     <div class="ui input">
                         <input id="f_username" placeholder="Username" required="" type="text" value="neo4j">
                     </div>
                 </div>
+            </div>
             <div class="ui warning message"></div></div><div class="field"><label>Password</label>
             <div class="field"><div class="ui input"><input id="f_password" placeholder="Password" type="password" value=""></div></div>
             <div class="ui warning message"></div></div><div class="field"><div class="ui checkbox">
@@ -344,7 +344,7 @@
     }
 
     #qj-tabs .active.item {
-        background-color: #e1eddd;
+        background-color: #e5ecfc;
     }
 
 
