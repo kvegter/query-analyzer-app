@@ -1,3 +1,10 @@
+### 1.0.5
+_This release supports query log information from Neo4j version 3.1 to v5.+_
+
+* Fixing date parsing in Safari browser
+* Improved Login Form
+* Neo4j v5 support
+
 ### 1.0.4
 _This release supports query log information from Neo4j version 3.1 to v4.4_
 
