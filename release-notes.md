@@ -1,3 +1,8 @@
+### 1.0.6
+_This release supports query log information from Neo4j version 3.1 to v4.4_
+
+* Support for Aura Query log files.
+
 ### 1.0.5
 _This release supports query log information from Neo4j version 3.1 to v4.4_
 
