@@ -1,3 +1,15 @@
+1.0.9
+_This release supports query log information from Neo4j version 3.1 to v5.3.x_
+
+* Fixed an issue with neo4j desktop and a remote aura connection.
+* Possible to filter on database in the summary tab
+* Support 5.3+ cluster topologies
+
+1.0.8
+_This release supports query log information from Neo4j version 3.1 to v4.4_
+
+* Fixing packaging error, functional the same as 1.0.6
+
 ### 1.0.6
 _This release supports query log information from Neo4j version 3.1 to v4.4_
 
