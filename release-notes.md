@@ -1,11 +1,18 @@
-1.0.9
+### 1.0.10
+_This release supports query log information from Neo4j version 3.1 to v5.7.x_
+
+* Make it possible to sort on maxTime and minTime in the Query Analysis tab
+* Make it possible to use a time treshold in the Query Analysis tab. 100 means all queries longer then 100ms will be shown. 
+* Fix query log record format issues for aura
+
+### 1.0.9
 _This release supports query log information from Neo4j version 3.1 to v5.3.x_
 
 * Fixed an issue with neo4j desktop and a remote aura connection.
 * Possible to filter on database in the summary tab
 * Support 5.3+ cluster topologies
 
-1.0.8
+### 1.0.8
 _This release supports query log information from Neo4j version 3.1 to v4.4_
 
 * Fixing packaging error, functional the same as 1.0.6
