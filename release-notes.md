@@ -1,3 +1,9 @@
+### 1.0.11
+_This release supports query log information from Neo4j version 3.1 to v5.9.x_
+
+* Fix memory usage calculation
+* Fix parsing embedded lines
+
 ### 1.0.10
 _This release supports query log information from Neo4j version 3.1 to v5.7.x_
 
