@@ -1,3 +1,9 @@
+### 1.0.12
+_This release supports query log information from Neo4j version 3.1 to v2025.x.x_
+
+* Fix handling getComponents call for database versions to support the calendar release pattern
+* Updated to the latest 4.4 javascript neo4j driver 
+
 ### 1.0.11
 _This release supports query log information from Neo4j version 3.1 to v5.9.x_
 

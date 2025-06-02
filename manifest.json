@@ -1,6 +1,6 @@
 {
   "name" : "query-log-analyzer",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description" : "Analyze Queries from the query log file, current queries and query statistics ",
   "icons" : [  {
     "src": "qloganalyzer_icon.png",
