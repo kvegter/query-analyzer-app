@@ -4,18 +4,15 @@ The query log analyzer is a Neo4j Desktop App to help you to understand the quer
 Since version 1.0.1 it is possible to see the current running queries on a database and see the query stats of the latest 8192 queries (version 3.5.4+).
 
 ```
-run in the neo4j desktop (1.1.10+)
-- add the following Url in the tab "Graph Applications"-"Install Graph Application":
-  https://registry.npmjs.org/query-log-analyzer
-- select a Project and do "Add Application"  
-
-Other ways to run the query log analyzer
+How to run the query log analyzer
 - via queryloganalyzer.graphapp.io in your browser:
   - for accessing a local non encrypted bolt connection 
     http://queryloganalyzer.graphapp.io
   - for accessing a database with an encrypted bolt connection
     https://queryloganalyzer.graphapp.io/
 - via local files, just download a zip from the releases and then unzip and open the index.html page
+
+TIP: you can also go to https://tools.neo4jlabs.com/ to find these links and other tools 
 ```   
 When you experience slowness of the Neo4j server your queries may be inefficient or for example the query load on the server is too high. A good step is then to switch on the query log via the neo4j.conf file. Normally you will set a threshold to log only those queries which take more than an x amount of time (start with 100ms for example). This means that the queries shown in the query log tool are not the complete query load on the server! This tool however can give you a direction to find the possible causes for your query bottlenecks quickly. 
 It is good practice to switch the query logging on for development and test servers and analyze your queries frequently when you develop your solution.  
